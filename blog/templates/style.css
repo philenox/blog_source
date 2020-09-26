@@ -1,0 +1,26 @@
+body {background-color: mintcream;}
+
+h1 
+{
+border: 5px solid forestgreen;
+Font-family: "Times New Roman";
+font-size: 16px;
+border-radius: 10px;
+}
+
+h2
+{
+border:5px solid purple;
+Font-family: "Times New Roman";
+font-size: 16px;
+border-radius: 10px;
+}
+
+h3
+{
+border:5px solid forestgreen; 
+outline:5px solid purple;
+Font-family: "Times New Roman";
+font-size: 16px;
+border-radius: 10px;
+}
