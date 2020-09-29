@@ -21,12 +21,12 @@ TEMPLATES_DIRS = os.path.join(BASE_DIR,'templates')
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '8ut%*jb*mibg-#a9qps&-56rf3myc9ujr+zcoft%z40w$398ml'
+SECRET_KEY = '8s*21mc+i0do$#7z@pcqvtg_px2g!z@n+lp%09g6&b=n9$9(tq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.philipandmelissalenox.com']
 
 
 # Application definition
@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+#TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -120,6 +120,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATICFILES_DIRS = [
+    "/home/philenox/blog_source/media/",
+]
+
+STATIC_ROOT = "/home/philenox/blog_source/static/"
 STATIC_URL = '/static/'
 
 
@@ -129,4 +134,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_URL = '/media/'
 
 # Path where media is stored
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = '/home/philenox/blog_source/media/'

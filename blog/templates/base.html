@@ -8,6 +8,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
             crossorigin="anonymous" />
+
+        <link rel="shortcut icon" type="image/x-icon" href="/static/favicon-96x96.png">
+
+
+        <link rel="apple-touch-icon" sizes="57x57" href="/static/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/static/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/static/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/static/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/static/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/static/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/static/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/static/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/static/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/static/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+        <link rel="manifest" href="/static/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+
+        <meta property ="og:title" content ="Philip and Melissa's Blog">
+        <meta property = "og:image" content = "/static/favicon_v3.jpg"
     </head>
 
     <body>
@@ -32,10 +55,15 @@
             box-shadow: 0 16px 48px #E3E7EB;
             padding-top: 10px;
         }
+        .navbar {
+            background-color: mediumseagreen;
+        }
+
     </style>
 
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow" id="mainNav">
+        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light shadow" id="mainNav"> -->
+        <nav class="navbar navbar-expand-lg navbar-light shadow" id="mainNav">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'home' %}">Philip and Melissa's Blog</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -48,10 +76,13 @@
                             <a class="nav-link text-black font-weight-bold" href="#">About</a>
                         </li>
                         <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">Policy</a>
+                            <a class="nav-link text-black font-weight-bold" href="#">Photos</a>
                         </li>
                         <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">Contact</a>
+                            <a class="nav-link text-black font-weight-bold" href="#">Archive</a>
+                        </li>
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="#">Subscribe</a>
                         </li>
                     </ul>
                 </div>
