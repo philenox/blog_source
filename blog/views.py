@@ -1,8 +1,8 @@
-from .models import Post
-from .forms import CommentForm
+from .models import Post, EmailSubscription
+from .forms import CommentForm, EmailForm
+
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from django.utils import timezone
 
 
 class PostList(generic.ListView):
@@ -13,6 +13,29 @@ class PostList(generic.ListView):
 #    model = Post
 #    template_name = 'post_detail.html'
 
+def about(request):
+    template_name = 'about.html'
+    return render(request, template_name)
+
+class PhotosPage(generic.ListView):
+    queryset = Post.objects.filter(status=1).order_by('-created_on')
+    template_name = 'photos.html'
+
+def subscribe(request):
+    template_name = 'subscribe.html'
+    # new subscription
+    if request.method == 'POST':
+        email_form = EmailForm(data=request.POST)
+        if email_form.is_valid():
+            new_email = email_form.save(commit=False)
+            new_email.save()
+            new_email_status = True
+    else:
+        email_form = EmailForm()
+        new_email_status = False
+
+    return render(request, template_name, {'email_form': email_form,
+                                           'new_email': new_email_status})
 
 def post_detail(request, slug):
     template_name = 'post_detail.html'

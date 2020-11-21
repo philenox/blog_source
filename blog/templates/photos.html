@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+            {% for post in post_list %}
+				{% if post.image1 %}
+				    <div class="col-md-8 col-md-10 mx-auto">
+					<img src="{{post.image1.url}}" alt="connect" style="max-height:300px;max-width:300px;">
+			        </div>
+				{% endif %}
+
+				{% if post.image2 %}
+				    <div class="col-md-8 col-md-10 mx-auto">
+					<img src="{{post.image2.url}}" alt="connect" style="max-height:300px;max-width:300px;">
+			        </div>
+				{% endif %}
+
+				{% if post.image3 %}
+				    <div class="col-md-8 col-md-10 mx-auto">
+					<img src="{{post.image3.url}}" alt="connect" style="max-height:300px;max-width:300px;">
+			        </div>
+				{% endif %}
+            {% endfor %}
+    </div>
+</div>
+{%endblock%}
