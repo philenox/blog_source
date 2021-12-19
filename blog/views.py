@@ -1,8 +1,9 @@
-from .models import Post, EmailSubscription
+from .models import Post, Comment, EmailSubscription
 from .forms import CommentForm, EmailForm
 
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
+from django.http import HttpResponseRedirect
 
 
 class PostList(generic.ListView):
@@ -46,13 +47,31 @@ def post_detail(request, slug):
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+            except:
+                parent_id = None
 
-            # Create Comment object but don't save to database yet
-            new_comment = comment_form.save(commit=False)
-            # Assign the current post to the comment
-            new_comment.post = post
-            # Save the comment to the database
-            new_comment.save()
+            if parent_id:
+                parent_obj = Comment.objects.get(id=parent_id)
+                # if parent object exist
+                if parent_obj:
+                    # create replay comment object
+                    reply_comment = comment_form.save(commit=False)
+                    # assign parent_obj to replay comment
+                    reply_comment.parent = parent_obj
+                    #Save the reply to database
+                    reply_comment.save()
+
+            else:
+                # Create Comment object but don't save to database yet
+                new_comment = comment_form.save(commit=False)
+                # Assign the current post to the comment
+                new_comment.post = post
+                # Save the comment to the database
+                new_comment.save()
+
     else:
         comment_form = CommentForm()
 
