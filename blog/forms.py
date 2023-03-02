@@ -1,11 +1,11 @@
 from .models import Comment, EmailSubscription
 from django import forms
-from captcha.fields import CaptchaField
+from captcha.fields import ReCaptchaField
 
 
 class CommentForm(forms.ModelForm):
     body = forms.CharField(widget=forms.Textarea(attrs={'cols': 20, 'rows': 10}))
-    captcha = CaptchaField()
+    captcha = ReCaptchaField()
     class Meta:
         model = Comment
         fields = ('name', 'body')
