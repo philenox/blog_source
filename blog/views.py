@@ -18,6 +18,10 @@ def about(request):
     template_name = 'about.html'
     return render(request, template_name)
 
+def michelle(request):
+    template_name = 'michelle.html'
+    return render(request, template_name)
+
 class PhotosPage(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'photos.html'
