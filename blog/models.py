@@ -55,6 +55,7 @@ class Image(models.Model):
     def __str__(self):
         return self.title
 
+
 class EmailSubscription(models.Model):
     sys_id = models.AutoField(primary_key=True, null=False, blank=True)
     email = models.EmailField(unique = True)
@@ -64,3 +65,4 @@ class EmailSubscription(models.Model):
 
     def __str__(self):
         return self.email
+    
