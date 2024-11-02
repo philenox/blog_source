@@ -10,6 +10,7 @@ urlpatterns = [
     path('subscribe/', views.subscribe, name='subscribe'),
     path('photos/', views.PhotosPage.as_view(), name='photos'),
     path('michelle/', views.michelle, name='michelle'),
+    path('recipe_index/', views.recipe_index, name='recipe_index'),
     path('<slug:slug>/', views.post_detail, name='post_detail'),
 ]
 

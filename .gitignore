@@ -1,0 +1,8 @@
+# Ignore the settings.py file in the my_site directory
+my_site/settings.py
+
+# Ignore the venv directory
+venv/
+
+# Ignore pyc files
+*.pyc
