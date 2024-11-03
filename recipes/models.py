@@ -1,6 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
-
 
 STATUS = (
     (0,"Draft"),
@@ -16,6 +14,9 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        app_label = 'recipes'
 
 class Ingredient(models.Model):
     ingredient_id = models.AutoField(primary_key=True)
@@ -23,6 +24,9 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return self.ingredient_name
+    
+    class Meta:
+        app_label = 'recipes'
 
 class Tag(models.Model):
     tag_id = models.AutoField(primary_key=True)
@@ -30,6 +34,9 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.tag_name
+    
+    class Meta:
+        app_label = 'recipes'
 
 class Recipe(models.Model):
     recipe_id = models.AutoField(primary_key=True)
@@ -37,6 +44,9 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        app_label = 'recipes'
 
 class Instruction(models.Model):
     instruction_id = models.AutoField(primary_key=True)
@@ -46,6 +56,7 @@ class Instruction(models.Model):
 
     class Meta:
         ordering = ['step_number']
+        app_label = 'recipes'
 
     def __str__(self):
         return f"Step {self.step_number} for {self.recipe.title}"
@@ -58,6 +69,8 @@ class RecipeIngredient(models.Model):
 
     def __str__(self):
         return f"{self.quantity} {self.unit} of {self.ingredient.ingredient_name} for {self.recipe.title}"
+    class Meta:
+        app_label = 'recipes'
 
 class RecipeTag(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipe_tags')
@@ -65,3 +78,6 @@ class RecipeTag(models.Model):
 
     def __str__(self):
         return f"{self.tag.tag_name} for {self.recipe.title}"
+    
+    class Meta:
+        app_label = 'recipes'

@@ -22,6 +22,7 @@ class Post(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
 
     class Meta:
+        app_label = 'blog'
         ordering = ['-created_on']
 
     def __str__(self):
@@ -43,6 +44,7 @@ class Comment(models.Model):
     active = models.BooleanField(default=True)
 
     class Meta:
+        app_label = 'blog'
         ordering = ['created_on']
 
     def __str__(self):
@@ -51,6 +53,9 @@ class Comment(models.Model):
 class Image(models.Model):
     title = models.CharField(max_length=200)
     image = models.ImageField(upload_to='images')
+
+    class Meta:
+        app_label = 'blog'
 
     def __str__(self):
         return self.title
@@ -65,4 +70,7 @@ class EmailSubscription(models.Model):
 
     def __str__(self):
         return self.email
+    
+    class Meta:
+        app_label = 'blog'
     
