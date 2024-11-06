@@ -5,79 +5,59 @@ STATUS = (
     (1,"Publish")
 )
 
-class Recipe(models.Model):
-    title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='images')
-    ingredients = models.TextField()
-    instructions = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
+class Ingredients(models.Model):
+    ingredient_id = models.AutoField(primary_key=True, blank=True)
+    ingredient_name = models.TextField(unique=True)
 
-    def __str__(self):
-        return self.title
-    
     class Meta:
-        app_label = 'recipes'
+        managed = False
+        db_table = 'Ingredients'
 
-class Ingredient(models.Model):
-    ingredient_id = models.AutoField(primary_key=True)
-    ingredient_name = models.CharField(max_length=255)
 
-    def __str__(self):
-        return self.ingredient_name
-    
-    class Meta:
-        app_label = 'recipes'
-
-class Tag(models.Model):
-    tag_id = models.AutoField(primary_key=True)
-    tag_name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.tag_name
-    
-    class Meta:
-        app_label = 'recipes'
-
-class Recipe(models.Model):
-    recipe_id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        app_label = 'recipes'
-
-class Instruction(models.Model):
-    instruction_id = models.AutoField(primary_key=True)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='instructions')
-    step_number = models.PositiveIntegerField()
+class Instructions(models.Model):
+    instruction_id = models.AutoField(primary_key=True, blank=True)
+    recipe = models.ForeignKey('Recipes', models.DO_NOTHING, blank=True, null=True)
+    step_number = models.IntegerField(blank=True, null=True)
     instruction_text = models.TextField()
 
     class Meta:
-        ordering = ['step_number']
-        app_label = 'recipes'
+        managed = False
+        db_table = 'Instructions'
 
-    def __str__(self):
-        return f"Step {self.step_number} for {self.recipe.title}"
 
-class RecipeIngredient(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipe_ingredients')
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    quantity = models.DecimalField(max_digits=5, decimal_places=2)
-    unit = models.CharField(max_length=50)
+class Recipeingredients(models.Model):
+    recipe = models.OneToOneField('Recipes', models.DO_NOTHING, primary_key=True, blank=True)  # The composite primary key (recipe_id, ingredient_id) found, that is not supported. The first column is selected.
+    ingredient = models.ForeignKey(Ingredients, models.DO_NOTHING, blank=True, null=True)
+    quantity = models.FloatField(blank=True, null=True)
+    unit = models.TextField(blank=True, null=True)
 
-    def __str__(self):
-        return f"{self.quantity} {self.unit} of {self.ingredient.ingredient_name} for {self.recipe.title}"
     class Meta:
-        app_label = 'recipes'
+        managed = False
+        db_table = 'RecipeIngredients'
 
-class RecipeTag(models.Model):
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipe_tags')
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f"{self.tag.tag_name} for {self.recipe.title}"
-    
+class Recipetags(models.Model):
+    recipe = models.OneToOneField('Recipes', models.DO_NOTHING, primary_key=True, blank=True)  # The composite primary key (recipe_id, tag_id) found, that is not supported. The first column is selected.
+    tag = models.ForeignKey('Tags', models.DO_NOTHING, blank=True, null=True)
+
     class Meta:
-        app_label = 'recipes'
+        managed = False
+        db_table = 'RecipeTags'
+
+
+class Recipes(models.Model):
+    recipe_id = models.AutoField(primary_key=True, blank=True)
+    title = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'Recipes'
+
+
+class Tags(models.Model):
+    tag_id = models.AutoField(primary_key=True, blank=True)
+    tag_name = models.TextField(unique=True)
+
+    class Meta:
+        managed = False
+        db_table = 'Tags'
