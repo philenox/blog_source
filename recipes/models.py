@@ -16,7 +16,11 @@ class Ingredients(models.Model):
 
 class Instructions(models.Model):
     instruction_id = models.AutoField(primary_key=True, blank=True)
-    recipe = models.ForeignKey('Recipes', models.DO_NOTHING, blank=True, null=True)
+    recipe = models.ForeignKey('Recipes', 
+                               models.DO_NOTHING, 
+                               blank=True, 
+                               null=True,
+                               related_name='instructions')
     step_number = models.IntegerField(blank=True, null=True)
     instruction_text = models.TextField()
 
@@ -26,8 +30,16 @@ class Instructions(models.Model):
 
 
 class Recipeingredients(models.Model):
-    recipe = models.OneToOneField('Recipes', models.DO_NOTHING, primary_key=True, blank=True)  # The composite primary key (recipe_id, ingredient_id) found, that is not supported. The first column is selected.
-    ingredient = models.ForeignKey(Ingredients, models.DO_NOTHING, blank=True, null=True)
+    recipe = models.ForeignKey('Recipes', 
+                               on_delete=models.DO_NOTHING,
+                               primary_key=True,
+                               related_name='recipe_ingredients',
+                               blank=True)  # The composite primary key (recipe_id, ingredient_id) found, that is not supported. The first column is selected.
+    ingredient = models.ForeignKey(Ingredients, 
+                                   models.DO_NOTHING, 
+                                   blank=True, 
+                                   null=True,
+                                   related_name='ingredient_recipes')
     quantity = models.FloatField(blank=True, null=True)
     unit = models.TextField(blank=True, null=True)
 
@@ -37,8 +49,16 @@ class Recipeingredients(models.Model):
 
 
 class Recipetags(models.Model):
-    recipe = models.OneToOneField('Recipes', models.DO_NOTHING, primary_key=True, blank=True)  # The composite primary key (recipe_id, tag_id) found, that is not supported. The first column is selected.
-    tag = models.ForeignKey('Tags', models.DO_NOTHING, blank=True, null=True)
+    recipe = models.ForeignKey('Recipes', 
+                                  on_delete=models.DO_NOTHING, 
+                                  primary_key=True, 
+                                  blank=True,
+                                  related_name='recipe_tags')  # The composite primary key (recipe_id, tag_id) found, that is not supported. The first column is selected.
+    tag = models.ForeignKey('Tags', 
+                            models.DO_NOTHING, 
+                            blank=True, 
+                            null=True,
+                            related_name='tags_recipe')
 
     class Meta:
         managed = False
@@ -46,7 +66,8 @@ class Recipetags(models.Model):
 
 
 class Recipes(models.Model):
-    recipe_id = models.AutoField(primary_key=True, blank=True)
+    recipe_id = models.AutoField(primary_key=True, 
+                                 blank=True)
     title = models.TextField()
 
     class Meta:
@@ -55,7 +76,8 @@ class Recipes(models.Model):
 
 
 class Tags(models.Model):
-    tag_id = models.AutoField(primary_key=True, blank=True)
+    tag_id = models.AutoField(primary_key=True, 
+                              blank=True)
     tag_name = models.TextField(unique=True)
 
     class Meta:
