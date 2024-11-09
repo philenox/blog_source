@@ -13,17 +13,15 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>Amount</th>
                     <th>Ingredient</th>
-                    <th>Quantity</th>
-                    <th>Unit</th>
                 </tr>
             </thead>
             <tbody>
                 {% for item in ingredients %}
                 <tr>
+                    <td>{{ item.amount }}</td>
                     <td>{{ item.ingredient.ingredient_name }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.unit }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -40,8 +40,7 @@ class Recipeingredients(models.Model):
                                    blank=True, 
                                    null=True,
                                    related_name='ingredient_recipes')
-    quantity = models.FloatField(blank=True, null=True)
-    unit = models.TextField(blank=True, null=True)
+    amount = models.FloatField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -53,7 +52,7 @@ class Recipetags(models.Model):
                                   on_delete=models.DO_NOTHING, 
                                   primary_key=True, 
                                   blank=True,
-                                  related_name='recipe_tags')  # The composite primary key (recipe_id, tag_id) found, that is not supported. The first column is selected.
+                                  related_name='recipe_tags')
     tag = models.ForeignKey('Tags', 
                             models.DO_NOTHING, 
                             blank=True, 
