@@ -21,6 +21,7 @@ def recipe_index(request):
         'tags': tags,
         'selected_tags': selected_tags,
     })
+
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipes.objects.using('recipes_db'), recipe_id=recipe_id)
     instructions = recipe.instructions.all()

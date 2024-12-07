@@ -4,7 +4,7 @@
 {% block content %}
 <div class="row">
     <!-- Sidebar for Tags -->
-    <div class="col-md-3">
+    <div class="col-md-3 offset-md-1">
         <h4>Filter by Tags</h4>
         <form method="get">
             {% for tag in tags %}
@@ -22,7 +22,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="col-md-9">
+    <div class="col-md-8">
         <h1 class="mt-4">All Recipes</h1>
         {% if recipes %}
         <table class="table table-striped mt-3">

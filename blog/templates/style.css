@@ -24,3 +24,18 @@ Font-family: "Times New Roman";
 font-size: 16px;
 border-radius: 10px;
 }
+
+
+/* Ensure the container allows the table to shrink */
+.ingredients-table {
+    /* Removes any width constraints */
+    width: auto;
+    /* Allows the table to adjust column widths based on content */
+    table-layout: auto;
+}
+
+/* Optional: Further reduce padding for a more compact look */
+.ingredients-table th,
+.ingredients-table td {
+    padding: 0.3rem; /* Adjust as needed */
+}
