@@ -2,23 +2,50 @@
 {% load static %}
 
 {% block content %}
-    <h1 class="mt-4">All Recipes</h1>
-    <table class="table table-striped mt-3">
-        <thead>
-            <tr>
-                <th>Recipe Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for recipe in recipes %}
-            <tr>
-                <td>
-                    <a href="{% url 'recipe_detail' recipe_id=recipe.recipe_id %}">
-                        {{ recipe.title }}
-                    </a>
-                </td>
-            </tr>
+<div class="row">
+    <!-- Sidebar for Tags -->
+    <div class="col-md-3">
+        <h4>Filter by Tags</h4>
+        <form method="get">
+            {% for tag in tags %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="tags" value="{{ tag.tag_id }}"
+                    id="tag{{ tag.tag_id }}"
+                    {% if tag.tag_id in selected_tags %}checked{% endif %}>
+                <label class="form-check-label" for="tag{{ tag.tag_id }}">
+                    {{ tag.tag_name }}
+                </label>
+            </div>
             {% endfor %}
-        </tbody>
-    </table>
+            <button type="submit" class="btn btn-primary mt-2">Filter</button>
+        </form>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+        <h1 class="mt-4">All Recipes</h1>
+        {% if recipes %}
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Recipe Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for recipe in recipes %}
+                <tr>
+                    <td>
+                        <a href="{% url 'recipe_detail' recipe_id=recipe.recipe_id %}">
+                            {{ recipe.title }}
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No recipes found for the selected tags.</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
