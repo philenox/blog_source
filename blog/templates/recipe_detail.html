@@ -6,23 +6,31 @@
         <h1>{{ recipe.title }}</h1>
 
         <h3 class="mt-4">Ingredients</h3>
-        <div class="d-flex justify-content-start">
-            <table class="table table-bordered table-sm w-auto ingredients-table">
-                <thead>
-                    <tr>
-                        <th class="text-nowrap">Amount</th>
-                        <th class="text-nowrap">Ingredient</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in ingredients %}
-                    <tr>
-                        <td class="text-nowrap">{{ item.amount }}</td>
-                        <td class="text-nowrap">{{ item.ingredient.ingredient_name }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="row">
+            <!-- Ingredients Table Column -->
+            <div class="col-md-8 col-sm-12">
+                <table class="table table-bordered table-sm ingredients-table">
+                    <thead>
+                        <tr>
+                            <th class="text-nowrap">Amount</th>
+                            <th class="text-nowrap">Ingredient</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in ingredients %}
+                        <tr>
+                            <td class="text-nowrap">{{ item.amount }}</td>
+                            <td class="text-nowrap">{{ item.ingredient.ingredient_name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Recipe Image Column -->
+            <div class="col-md-4 col-sm-12 mb-3">
+                <img src="{{ recipe_image_url }}" alt="{{ recipe.title }} Photo" class="img-fluid rounded shadow">
+            </div>
         </div>
 
         <h3 class="mt-4">Instructions</h3>
