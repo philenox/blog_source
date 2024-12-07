@@ -3,6 +3,7 @@ from .models import Recipes, Tags
 
 def recipe_index(request):
     selected_tags = request.GET.getlist('tags')
+    selected_tags = [int(tag_id) for tag_id in selected_tags]
     tags = Tags.objects.using('recipes_db').all()
     
     if selected_tags:
@@ -12,12 +13,14 @@ def recipe_index(request):
     else:
         recipes = Recipes.objects.using('recipes_db').all()
     
+    # Prefetch related tags to optimize database queries
+    recipes = recipes.prefetch_related('recipe_tags__tag')
+    
     return render(request, 'recipe_index.html', {
         'recipes': recipes,
         'tags': tags,
-        'selected_tags': list(map(int, selected_tags))
+        'selected_tags': selected_tags,
     })
-
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipes.objects.using('recipes_db'), recipe_id=recipe_id)
     instructions = recipe.instructions.all()

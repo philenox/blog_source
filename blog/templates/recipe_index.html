@@ -29,6 +29,7 @@
             <thead>
                 <tr>
                     <th>Recipe Name</th>
+                    <th>Tags</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +39,11 @@
                         <a href="{% url 'recipe_detail' recipe_id=recipe.recipe_id %}">
                             {{ recipe.title }}
                         </a>
+                    </td>
+                    <td>
+                        {% for recipetag in recipe.recipe_tags.all %}
+                            {{ recipetag.tag.tag_name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
                     </td>
                 </tr>
                 {% endfor %}
