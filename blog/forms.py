@@ -1,6 +1,6 @@
 from .models import Comment, EmailSubscription
 from django import forms
-from captcha.fields import ReCaptchaField
+from django_recaptcha.fields import ReCaptchaField
 
 
 class CommentForm(forms.ModelForm):
