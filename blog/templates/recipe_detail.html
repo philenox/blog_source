@@ -1,47 +1,40 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ recipe.title }}</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-</head>
-<body>
-    <div class="container">
-        <h1 class="mt-4">{{ recipe.title }}</h1>
 
-        <h3 class="mt-4">Ingredients</h3>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Amount</th>
-                    <th>Ingredient</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in ingredients %}
-                <tr>
-                    <td>{{ item.amount }}</td>
-                    <td>{{ item.ingredient.ingredient_name }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+{% block content %}
+    <h1 class="mt-4">{{ recipe.title }}</h1>
 
-        <h3 class="mt-4">Instructions</h3>
-        <ol>
-            {% for instruction in instructions %}
-            <li>{{ instruction.instruction_text }}</li>
+    <h3 class="mt-4">Ingredients</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Amount</th>
+                <th>Ingredient</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in ingredients %}
+            <tr>
+                <td>{{ item.amount }}</td>
+                <td>{{ item.ingredient.ingredient_name }}</td>
+            </tr>
             {% endfor %}
-        </ol>
+        </tbody>
+    </table>
 
-        <h3 class="mt-4">Tags</h3>
-        <ul>
-            {% for tag in tags %}
-            <li>{{ tag.tag.tag_name }}</li>
-            {% endfor %}
-        </ul>
+    <h3 class="mt-4">Instructions</h3>
+    <ol>
+        {% for instruction in instructions %}
+        <li>{{ instruction.instruction_text }}</li>
+        {% endfor %}
+    </ol>
 
-        <a href="{% url 'recipe_index' %}" class="btn btn-primary mt-4">Back to Recipes</a>
-    </div>
-</body>
-</html>
+    <h3 class="mt-4">Tags</h3>
+    <ul>
+        {% for tag in tags %}
+        <li>{{ tag.tag.tag_name }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'recipe_index' %}" class="btn btn-primary mt-4">Back to Recipes</a>
+{% endblock %}

@@ -1,31 +1,24 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Recipe Index</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-</head>
-<body>
-    <div class="container">
-        <h1 class="mt-4">All Recipes</h1>
-        <table class="table table-striped mt-3">
-            <thead>
-                <tr>
-                    <th>Recipe Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for recipe in recipes %}
-                <tr>
-                    <td>
-                        <a href="{% url 'recipe_detail' recipe_id=recipe.recipe_id %}">
-                            {{ recipe.title }}
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>
+
+{% block content %}
+    <h1 class="mt-4">All Recipes</h1>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Recipe Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recipe in recipes %}
+            <tr>
+                <td>
+                    <a href="{% url 'recipe_detail' recipe_id=recipe.recipe_id %}">
+                        {{ recipe.title }}
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
