@@ -33,14 +33,14 @@ def recipe_detail(request, recipe_id):
     
     # Determine the image path
     recipe_image_name = f"{recipe.title}.png"
-    image_path = os.path.join(settings.MEDIA_ROOT, 'image', recipe_image_name)
+    image_path = os.path.join(settings.MEDIA_ROOT, 'images', recipe_image_name)
     
     if os.path.exists(image_path):
         # If the image exists, use its URL
-        recipe_image_url = os.path.join(settings.MEDIA_URL, 'image', recipe_image_name)
+        recipe_image_url = os.path.join(settings.MEDIA_URL, 'images', recipe_image_name)
     else:
         # Otherwise, use the default image
-        recipe_image_url = os.path.join(settings.MEDIA_URL, 'image', 'default_recipe_photo.webp')
+        recipe_image_url = os.path.join(settings.MEDIA_URL, 'images', 'default_recipe_photo.webp')
     
     return render(request, 'recipe_detail.html', {
         'recipe': recipe,
