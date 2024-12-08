@@ -32,7 +32,7 @@ def recipe_detail(request, recipe_id):
     tags = recipe.recipe_tags.all()
     
     # Determine the image path
-    recipe_image_name = f"{recipe.title}.png"
+    recipe_image_name = f"{recipe.title}.jpg"
     image_path = os.path.join(settings.MEDIA_ROOT, 'images', recipe_image_name)
     
     if os.path.exists(image_path):
