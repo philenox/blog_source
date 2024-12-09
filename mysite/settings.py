@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'blog',
     'recipes',
     'crispy_forms',
+    'crispy_bootstrap4',
     'django_recaptcha',
 ]
 
