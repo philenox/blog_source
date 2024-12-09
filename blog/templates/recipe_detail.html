@@ -19,6 +19,7 @@
                         <tr>
                             <th class="text-nowrap">Amount</th>
                             <th class="text-nowrap">Ingredient</th>
+                            <th class="text-nowrap">Preparation</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,6 +27,7 @@
                         <tr>
                             <td class="text-nowrap">{{ item.amount }}</td>
                             <td class="text-nowrap">{{ item.ingredient.ingredient_name }}</td>
+                            <td class="text-nowrap">{{ item.preparation }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

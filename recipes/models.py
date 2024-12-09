@@ -41,6 +41,7 @@ class Recipeingredients(models.Model):
                                    null=True,
                                    related_name='ingredient_recipes')
     amount = models.FloatField(blank=True, null=True)
+    preparation = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = False
