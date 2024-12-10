@@ -28,7 +28,7 @@
                             <td>{{ item.amount }}</td>
                             <td>{{ item.ingredient.ingredient_name }}</td>
                             <td>
-                                {% if item.preparation %}
+                                {% if item.preparation != 'None' %}
                                     {{ item.preparation }}
                                 {% else %}
                                     <span class="text-muted">N/A</span>
