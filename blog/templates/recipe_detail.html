@@ -17,17 +17,23 @@
                 <table class="table table-bordered table-sm ingredients-table">
                     <thead>
                         <tr>
-                            <th class="text-nowrap">Amount</th>
-                            <th class="text-nowrap">Ingredient</th>
-                            <th class="text-nowrap">Preparation</th>
+                            <th>Amount</th>
+                            <th>Ingredient</th>
+                            <th>Preparation</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for item in ingredients %}
                         <tr>
-                            <td class="text-nowrap">{{ item.amount }}</td>
-                            <td class="text-nowrap">{{ item.ingredient.ingredient_name }}</td>
-                            <td class="text-nowrap">{{ item.preparation }}</td>
+                            <td>{{ item.amount }}</td>
+                            <td>{{ item.ingredient.ingredient_name }}</td>
+                            <td>
+                                {% if item.preparation %}
+                                    {{ item.preparation }}
+                                {% else %}
+                                    <span class="text-muted">N/A</span>
+                                {% endif %}
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
