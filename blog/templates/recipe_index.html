@@ -36,9 +36,7 @@
                 {% for recipe in recipes %}
                 <tr>
                     <td>
-                        <a href="{% url 'recipe_detail' recipe_id=recipe.recipe_id %}">
-                            {{ recipe.title }}
-                        </a>
+                        <a href="{% url 'recipe_detail' recipe.slug %}">{{ recipe.title }}</a>
                     </td>
                     <td>
                         {% for recipetag in recipe.recipe_tags.all %}

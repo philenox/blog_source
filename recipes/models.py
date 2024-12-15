@@ -69,10 +69,12 @@ class Recipes(models.Model):
     recipe_id = models.AutoField(primary_key=True, 
                                  blank=True)
     title = models.TextField()
+    slug = models.SlugField(max_length=255, unique=True)
 
     class Meta:
         managed = False
         db_table = 'Recipes'
+        app_label = 'recipes'
 
 
 class Tags(models.Model):

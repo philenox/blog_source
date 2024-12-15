@@ -25,8 +25,8 @@ def recipe_index(request):
     })
 
 
-def recipe_detail(request, recipe_id):
-    recipe = get_object_or_404(Recipes.objects.using('recipes_db'), recipe_id=recipe_id)
+def recipe_detail(request, slug):
+    recipe = get_object_or_404(Recipes.objects.using('recipes_db'), slug=slug)
     instructions = recipe.instructions.all()
     ingredients = recipe.recipe_ingredients.all()
     tags = recipe.recipe_tags.all()
@@ -47,5 +47,5 @@ def recipe_detail(request, recipe_id):
         'instructions': instructions,
         'ingredients': ingredients,
         'tags': tags,
-        'recipe_image_url': recipe_image_url,  # Pass the image URL to the template
+        'recipe_image_url': recipe_image_url,
     })
