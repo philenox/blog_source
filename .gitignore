@@ -6,3 +6,6 @@ venv/
 
 # Ignore .env files
 *.env
+
+# Ignore michelle.html
+michelle.html
