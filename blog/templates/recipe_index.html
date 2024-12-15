@@ -5,20 +5,26 @@
 <div class="row">
     <!-- Sidebar for Tags -->
     <div class="col-md-3 offset-md-1">
-        <h4>Filter by Tags</h4>
-        <form method="get">
-            {% for tag in tags %}
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="tags" value="{{ tag.tag_id }}"
-                    id="tag{{ tag.tag_id }}"
-                    {% if tag.tag_id in selected_tags %}checked{% endif %}>
-                <label class="form-check-label" for="tag{{ tag.tag_id }}">
-                    {{ tag.tag_name }}
-                </label>
-            </div>
-            {% endfor %}
-            <button type="submit" class="btn btn-primary mt-2">Filter</button>
-        </form>
+        <h4>
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#tagFilter" aria-expanded="false" aria-controls="tagFilter">
+                Filter by Tags
+            </button>
+        </h4>
+        <div class="collapse" id="tagFilter">
+            <form method="get">
+                {% for tag in tags %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="tags" value="{{ tag.tag_id }}"
+                        id="tag{{ tag.tag_id }}"
+                        {% if tag.tag_id in selected_tags %}checked{% endif %}>
+                    <label class="form-check-label" for="tag{{ tag.tag_id }}">
+                        {{ tag.tag_name }}
+                    </label>
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary mt-2">Filter</button>
+            </form>
+        </div>
     </div>
 
     <!-- Main Content -->
