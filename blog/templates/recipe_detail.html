@@ -25,7 +25,13 @@
                     <tbody>
                         {% for item in ingredients %}
                         <tr>
-                            <td>{{ item.amount }}</td>
+                            <td>
+                                {% if item.amount %}
+                                    {{ item.amount }}
+                                {% else %}
+
+                                {% endif %}
+                            </td>
                             <td>{{ item.ingredient.ingredient_name }}</td>
                             <td>
                                 {% if item.preparation %}
