@@ -7,7 +7,9 @@ def recipe_index(request):
     selected_tags = request.GET.getlist('tags')
     selected_tags = [int(tag_id) for tag_id in selected_tags]
     tags = Tags.objects.using('recipes_db').all()
-    
+    # alphabetically sort the tags
+    tags = sorted(tags, key=lambda tag: tag.tag_name)
+
     if selected_tags:
         recipes = Recipes.objects.using('recipes_db').filter(
             recipe_tags__tag_id__in=selected_tags
@@ -17,6 +19,8 @@ def recipe_index(request):
     
     # Prefetch related tags to optimize database queries
     recipes = recipes.prefetch_related('recipe_tags__tag')
+    # alphabetize the recipe tags
+    recipes = sorted(recipes, key=lambda recipe: recipe.title)
     
     return render(request, 'recipe_index.html', {
         'recipes': recipes,
