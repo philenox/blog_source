@@ -76,6 +76,16 @@ def create_db(db_path):
     );
     """)
 
+    # Create the Notes table
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS Notes (
+        note_id INTEGER PRIMARY KEY,
+        recipe_id INTEGER,
+        note_text TEXT NOT NULL,
+        FOREIGN KEY (recipe_id) REFERENCES Recipes(recipe_id)
+    );
+    """)
+
     # Commit the changes and close the connection
     conn.commit()
     conn.close()
@@ -130,6 +140,12 @@ def read_recipes_to_db(file_path, db_path, mode):
         except KeyError:
             preparation = [None] * len(ingredients)
 
+        # check if the recipe has a notes column, if so read, it, otherwise, set it to None
+        try:
+            notes = df["Notes"]
+        except KeyError:
+            notes = [None] * len(instructions)
+
         # add the recipe to the Recipes table
         try:
             cursor.execute("INSERT INTO Recipes (title, slug) VALUES (?, ?)", (recipe_title, slug))
@@ -151,6 +167,7 @@ def read_recipes_to_db(file_path, db_path, mode):
             cursor.execute("SELECT ingredient_id FROM Ingredients WHERE ingredient_name = ?", (ingredient_name,))
             ingredient_id = cursor.fetchone()[0]
             cursor.execute("INSERT INTO RecipeIngredients (recipe_id, ingredient_id, amount, preparation) VALUES (?, ?, ?, ?)", (recipe_id, ingredient_id, amount, preparation))        
+        
         # Add tags to the Tags table, linking them to the recipe in the RecipeTags table
         for tag in tags:
             # check if tag is NULL, if so, skip
@@ -169,7 +186,13 @@ def read_recipes_to_db(file_path, db_path, mode):
             if pd.isnull(instruction):
                 continue
             cursor.execute("INSERT INTO Instructions (recipe_id, step_number, instruction_text) VALUES (?, ?, ?)", (recipe_id, i + 1, instruction))
-
+        
+        # Add notes to the Notes table
+        for note in notes:
+            # check if note is NULL, if so, skip
+            if pd.isnull(note):
+                continue
+            cursor.execute("INSERT INTO Notes (recipe_id, note_text) VALUES (?, ?)", (recipe_id, note))
     # Commit the changes and close the connection
     conn.commit()
     conn.close()

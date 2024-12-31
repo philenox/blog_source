@@ -85,3 +85,16 @@ class Tags(models.Model):
     class Meta:
         managed = False
         db_table = 'Tags'
+
+class Notes(models.Model):
+    note_id = models.AutoField(primary_key=True, blank=True)
+    recipe = models.ForeignKey('Recipes', 
+                               models.DO_NOTHING, 
+                               blank=True, 
+                               null=True,
+                               related_name='notes')
+    note_text = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'Notes'

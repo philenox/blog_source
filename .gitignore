@@ -10,3 +10,5 @@ venv/
 
 # Ignore michelle.html
 michelle.html
+recipes/migrations/*
+*.xlsx

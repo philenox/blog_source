@@ -34,6 +34,7 @@ def recipe_detail(request, slug):
     instructions = recipe.instructions.all()
     ingredients = recipe.recipe_ingredients.all()
     tags = recipe.recipe_tags.all()
+    notes = recipe.notes.all()
     
     # Determine the image path
     recipe_image_name = f"{recipe.title}.jpg"
@@ -51,5 +52,6 @@ def recipe_detail(request, slug):
         'instructions': instructions,
         'ingredients': ingredients,
         'tags': tags,
+        'notes': notes,
         'recipe_image_url': recipe_image_url,
     })
