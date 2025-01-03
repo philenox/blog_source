@@ -1,3 +1,3 @@
 source activate ~/.virtualenvs/blog-virtualenv/bin/activate
 python manage.py makemigrations recipes
-python manage.py migrate --database=recipes_d
+python manage.py migrate --database=recipes_db
