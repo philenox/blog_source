@@ -30,10 +30,11 @@ class Instructions(models.Model):
 
 
 class Recipeingredients(models.Model):
-    recipe = models.OneToOneField('Recipes', 
-                               on_delete=models.DO_NOTHING,
-                               related_name='recipe_ingredients',
-                               blank=True)  # The composite primary key (recipe_id, ingredient_id) found, that is not supported. The first column is selected.
+    recipe = models.ForeignKey('Recipes', 
+                                  on_delete=models.DO_NOTHING,
+                                  primary_key=True,
+                                  related_name='recipe_ingredients',
+                                  blank=True)  # The composite primary key (recipe_id, ingredient_id) found, that is not supported. The first column is selected.
     ingredient = models.ForeignKey(Ingredients, 
                                    models.DO_NOTHING, 
                                    blank=True, 
@@ -48,8 +49,9 @@ class Recipeingredients(models.Model):
 
 
 class Recipetags(models.Model):
-    recipe = models.OneToOneField('Recipes', 
-                                  on_delete=models.DO_NOTHING, 
+    recipe = models.ForeignKey('Recipes', 
+                                  on_delete=models.DO_NOTHING,
+                                  primary_key=True, 
                                   blank=True,
                                   related_name='recipe_tags')
     tag = models.ForeignKey('Tags', 
