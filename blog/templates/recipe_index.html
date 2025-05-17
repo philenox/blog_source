@@ -30,6 +30,12 @@
     <!-- Main Content -->
     <div class="col-md-8">
         <h1 class="mt-4">All Recipes</h1>
+        
+        <!-- Search Input -->
+        <div class="form-group mt-3">
+            <input type="text" id="recipeSearch" class="form-control" placeholder="Search recipes...">
+        </div>
+
         {% if recipes %}
         <table class="table table-striped mt-3">
             <thead>
@@ -38,7 +44,7 @@
                     <th>Tags</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="recipeTableBody">
                 {% for recipe in recipes %}
                 <tr>
                     <td>
@@ -58,4 +64,45 @@
         {% endif %}
     </div>
 </div>
+
+<!-- Search JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('recipeSearch');
+        const tableBody = document.getElementById('recipeTableBody');
+        const rows = tableBody.getElementsByTagName('tr');
+        
+        // Debounce function to limit how often the search function runs
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Search function
+        const searchRecipes = debounce(function() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            for (let row of rows) {
+                const recipeName = row.cells[0].textContent.toLowerCase();
+                const tags = row.cells[1].textContent.toLowerCase();
+                
+                if (recipeName.includes(searchTerm) || tags.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }, 300); // 300ms delay
+
+        // Add event listener to search input
+        searchInput.addEventListener('input', searchRecipes);
+    });
+</script>
 {% endblock %}
