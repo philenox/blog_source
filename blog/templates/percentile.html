@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 card mb-4 mt-3">
+      <div class="card-body">
+        <h3>Baby Weight Percentile Calculator</h3>
+        <p class="text-muted" style="margin-bottom: 1em;">
+          Uses the World Health Organization Child Growth Standards
+          (weight-for-age, 0&ndash;2 years). Enter your baby's details
+          below to see their weight percentile.
+        </p>
+
+        {% if result %}
+          <div class="alert alert-info" role="alert" style="margin-bottom: 1.5em;">
+            <h4 class="alert-heading" style="margin-bottom: 0.5em;">
+              {{ result.percentile_ordinal }} percentile
+            </h4>
+            <p style="margin-bottom: 0.5em;">
+              A {{ result.sex_label }} weighing
+              <strong>{{ result.weight_kg }} kg</strong> at
+              {{ result.age_days }} days old
+              ({{ result.age_months_approx }} months) is in the
+              <strong>{{ result.percentile_ordinal }} percentile</strong>
+              for weight-for-age.
+            </p>
+            <p style="margin-bottom: 0.25em;">
+              That means roughly {{ result.percentile_rounded }}% of
+              {{ result.sex_label }}s the same age weigh less.
+            </p>
+            <p class="text-muted" style="margin-bottom: 0; font-size: 0.9em;">
+              WHO median at this age: {{ result.median_kg|floatformat:2 }} kg.
+              Z-score: {{ result.z|floatformat:2 }}.
+            </p>
+          </div>
+        {% endif %}
+
+        <form method="post" style="margin-top: 1em;">
+          {% csrf_token %}
+          {{ form | crispy }}
+          <button type="submit" class="btn btn-primary btn-lg">Calculate</button>
+        </form>
+
+        <p class="text-muted" style="margin-top: 2em; font-size: 0.85em;">
+          Data source: WHO Child Growth Standards (weight-for-age LMS tables).
+          This tool is for informational use only and is not a substitute
+          for medical advice.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

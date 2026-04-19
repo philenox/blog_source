@@ -12,6 +12,7 @@ urlpatterns = [
     path('photos/', views.PhotosPage.as_view(), name='photos'),
     path('michelle/', views.michelle, name='michelle'),
     path('recipes/', include('recipes.urls')),  # Include recipes URLs
+    path('percentile/', include('baby_percentile.urls')),
     path('<slug:slug>/', views.post_detail, name='post_detail'),
 ]
 
