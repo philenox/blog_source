@@ -12,3 +12,6 @@ venv/
 michelle.html
 recipes/migrations/*
 *.xlsx
+
+# Per-environment Django settings overrides
+mysite/local_settings.py

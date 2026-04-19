@@ -165,3 +165,10 @@ LOGGING = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Per-environment overrides. Create mysite/local_settings.py (gitignored)
+# to override any of the above for a specific deployment.
+try:
+    from .local_settings import *  # noqa: F401,F403
+except ImportError:
+    pass
