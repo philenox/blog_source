@@ -34,10 +34,10 @@ class PercentileForm(forms.Form):
                 raise forms.ValidationError(
                     'Measurement date must be on or after date of birth.'
                 )
-            if age_days > 730:
+            if age_days > 1826:
                 raise forms.ValidationError(
-                    'This calculator covers ages 0 through 2 years '
-                    '(730 days). Your input is older than that.'
+                    'This calculator covers ages 0 through 5 years '
+                    '(1826 days). Your input is older than that.'
                 )
             cleaned['age_days'] = age_days
         return cleaned
