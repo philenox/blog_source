@@ -4,6 +4,8 @@ from .forms import CommentForm, EmailForm
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.http import HttpResponseRedirect
+from django.core import signing
+import time
 
 
 class PostList(generic.ListView):
@@ -51,6 +53,9 @@ def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     comments = post.comments.filter(active=True)
     new_comment = None
+    def fresh_form():
+        return CommentForm(initial={'form_load_time': signing.dumps(time.time())})
+
     # Comment posted
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
@@ -71,6 +76,7 @@ def post_detail(request, slug):
                     reply_comment.parent = parent_obj
                     #Save the reply to database
                     reply_comment.save()
+                    comment_form = fresh_form()
 
             else:
                 # Create Comment object but don't save to database yet
@@ -79,9 +85,10 @@ def post_detail(request, slug):
                 new_comment.post = post
                 # Save the comment to the database
                 new_comment.save()
+                comment_form = fresh_form()
 
     else:
-        comment_form = CommentForm()
+        comment_form = fresh_form()
 
     return render(request, template_name, {'post': post,
                                            'comments': comments,
