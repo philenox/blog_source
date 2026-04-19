@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'recipes',
+    'baby_percentile',
     'crispy_forms',
     'crispy_bootstrap4',
     'django_recaptcha',
