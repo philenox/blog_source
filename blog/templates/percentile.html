@@ -37,9 +37,19 @@
           </div>
         {% endif %}
 
-        <form method="post" style="margin-top: 1em;">
+        <form method="post" style="margin-top: 1em;" id="percentileForm">
           {% csrf_token %}
           {{ form | crispy }}
+          <div class="form-check" style="margin-bottom: 1em;">
+            <input type="checkbox" class="form-check-input" id="rememberDob">
+            <label class="form-check-label" for="rememberDob">
+              Remember date of birth on this device
+            </label>
+            <small class="form-text text-muted">
+              Stored only in your browser (localStorage). Nothing is sent
+              to the server beyond what you submit here.
+            </small>
+          </div>
           <button type="submit" class="btn btn-primary btn-lg">Calculate</button>
         </form>
 
@@ -52,4 +62,49 @@
     </div>
   </div>
 </div>
+
+<script>
+(function () {
+  var DOB_KEY = 'babyPercentile.dob';
+  var dobField = document.getElementById('id_date_of_birth');
+  var measurementField = document.getElementById('id_measurement_date');
+  var rememberBox = document.getElementById('rememberDob');
+  var form = document.getElementById('percentileForm');
+
+  function todayIso() {
+    var d = new Date();
+    var mm = String(d.getMonth() + 1).padStart(2, '0');
+    var dd = String(d.getDate()).padStart(2, '0');
+    return d.getFullYear() + '-' + mm + '-' + dd;
+  }
+
+  if (measurementField && !measurementField.value) {
+    measurementField.value = todayIso();
+  }
+
+  try {
+    var savedDob = localStorage.getItem(DOB_KEY);
+    if (savedDob && dobField && !dobField.value) {
+      dobField.value = savedDob;
+      if (rememberBox) rememberBox.checked = true;
+    }
+  } catch (e) {
+    // localStorage unavailable (private mode, etc.) - just skip
+  }
+
+  if (form) {
+    form.addEventListener('submit', function () {
+      try {
+        if (rememberBox && rememberBox.checked && dobField && dobField.value) {
+          localStorage.setItem(DOB_KEY, dobField.value);
+        } else {
+          localStorage.removeItem(DOB_KEY);
+        }
+      } catch (e) {
+        // ignore
+      }
+    });
+  }
+})();
+</script>
 {% endblock content %}
