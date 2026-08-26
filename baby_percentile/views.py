@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from .chart import render_pdf_svg
 from .forms import PercentileForm
 from .percentile import weight_percentile
 
@@ -36,6 +37,7 @@ def percentile_view(request):
             'percentile_rounded': rounded,
             'percentile_ordinal': _ordinal(rounded),
             'median_kg': calc['M'],
+            'chart_svg': render_pdf_svg(sex, age_days, weight_kg),
         }
 
     return render(request, 'percentile.html', {

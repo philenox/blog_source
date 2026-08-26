@@ -30,10 +30,17 @@
               That means roughly {{ result.percentile_rounded }}% of
               {{ result.sex_label }}s the same age weigh less.
             </p>
-            <p class="text-muted" style="margin-bottom: 0; font-size: 0.9em;">
+            <p class="text-muted" style="margin-bottom: 0.75em; font-size: 0.9em;">
               WHO median at this age: {{ result.median_kg|floatformat:2 }} kg.
               Z-score: {{ result.z|floatformat:2 }}.
             </p>
+            <div style="background:#fff; border:1px solid #e5e5e5; border-radius:4px; padding:8px;">
+              {{ result.chart_svg|safe }}
+              <p class="text-muted" style="margin: 4px 0 0; font-size: 0.8em; text-align: center;">
+                WHO weight distribution for a {{ result.sex_label }} at {{ result.age_days }} days.
+                Dashed lines mark the 3rd, 50th, and 97th percentiles.
+              </p>
+            </div>
           </div>
         {% endif %}
 
